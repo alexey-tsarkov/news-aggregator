@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Свежие новости - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container p-4">
+    <h1 class="mb-4">Свежие новости ⚡</h1>
+
+    <form action="{{ path('app_news_search') }}" class="w-100">
+        <input type="search" class="form-control" name="q" placeholder="Искать" tabindex="1">
+    </form>
+</div>
+{% endblock %}

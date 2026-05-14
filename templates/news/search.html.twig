@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Поиск - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container p-4">
+    <h1>Свежие новости 🔎</h1>
+    <p>Поиск <code>{{ query }}</code></p>
+</div>
+{% endblock %}

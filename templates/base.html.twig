@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="light">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}LANGAME News{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" crossorigin="anonymous">
         {% block stylesheets %}
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
 
         {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
@@ -18,7 +19,23 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
         {% endif %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="d-flex flex-column justify-content-between h-100">
+        <header class="container-fluid">
+            <div class="container p-4">
+                <nav class="navbar">
+                    <a class="navbar-brand" href="{{ path('app_news') }}"><span class="langame-logo"><b>LAN</b>GAME</span> News</a>
+                    {% block menu %}{% endblock %}
+                </nav>
+            </div>
+        </header>
+        <main class="container-fluid flex-fill">
+            {% block body %}{% endblock %}
+        </main>
+        <footer class="container-fluid text-bg-light">
+            <div class="container text-center p-4">
+                <p class="m-0">Алексей Царьков для <a class="langame-logo" href="https://langame.ru" target="_blank"><b>LAN</b>GAME</a></p>
+                <p class="m-0">Москва 2026</p>
+            </div>
+        </footer>
     </body>
 </html>

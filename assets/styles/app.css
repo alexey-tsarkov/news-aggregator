@@ -1,3 +1,16 @@
-body {
-    background-color: skyblue;
+:root {
+    height: 100%;
+}
+.langame-logo {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    font-style: normal;
+    color: var(--bs-red);
+    white-space: nowrap;
+}
+.langame-logo :first-child {
+    font-weight: inherit;
+    font-style: inherit;
+    color: var(--bs-black);
 }
