@@ -6,5 +6,11 @@
 <div class="container p-4">
     <h1>Свежие новости 🔎</h1>
     <p>Поиск <code>{{ query }}</code></p>
+
+    {% for n in news %}
+    <p>{{ n.title }}</p>
+    {% else %}
+    <p>Ничего не найдено...</p>
+    {% endfor %}
 </div>
 {% endblock %}
