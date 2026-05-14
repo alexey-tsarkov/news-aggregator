@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\News;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -29,11 +30,13 @@ class NewsRepository extends ServiceEntityRepository
      */
     public function findByQuery(string $query, ?int $limit = null, ?int $offset = null): array
     {
-        return $this->findBy(
-                ['title LIKE ?' => \addcslashes($query, '%_\\').'%'],
-                ['updated_at' => 'DESC'],
-                $limit,
-                $offset,
-            );
+        return $this->createQueryBuilder('n')
+            ->where('n.title LIKE ?1')
+            ->orderBy('n.updated_at', 'DESC')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->setParameter(1, '%'.\addcslashes($query, '%_\\').'%', ParameterType::STRING)
+            ->execute();
     }
 }
