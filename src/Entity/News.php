@@ -22,7 +22,7 @@ class News
     #[ORM\Column(length: 512)]
     private ?string $summary = null;
 
-    #[ORM\Column(length: 4096)]
+    #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
     #[ORM\Column(length: 255)]
