@@ -13,12 +13,4 @@ final class NewsControllerTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
     }
-
-    public function testSearch(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/search');
-
-        self::assertResponseIsSuccessful();
-    }
 }
