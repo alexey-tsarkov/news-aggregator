@@ -4,5 +4,7 @@
         <h3 class="card-title">{{ news.title }}</h3>
         <p class="card-text">{{ news.summary }}</p>
     </div>
-    <div class="card-body text-body-secondary">{{ news.publishedAt|format_datetime('short', 'short') }}</div>
+    <div class="card-body text-body-secondary">
+        <time datetime="{{ news.publishedAt|date(constant('DATE_ATOM')) }}">{{ news.publishedAt|format_datetime('short', 'short') }}</time>
+    </div>
 </div>
