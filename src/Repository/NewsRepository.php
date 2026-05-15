@@ -30,13 +30,17 @@ class NewsRepository extends ServiceEntityRepository
      */
     public function findByQuery(string $query, ?int $limit = null, ?int $offset = null): array
     {
-        return $this->createQueryBuilder('n')
-            ->where('n.title LIKE ?1')
+        $qb = $this->createQueryBuilder('n')
             ->orderBy('n.updated_at', 'DESC')
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
-            ->getQuery()
-            ->setParameter(1, '%'.\addcslashes($query, '%_\\').'%', ParameterType::STRING)
-            ->execute();
+            ->setFirstResult($offset);
+
+        $query = \trim($query);
+        if ($query !== '') {
+            $qb->where('n.title LIKE ?1')
+                ->setParameter(1, '%'.\addcslashes($query, '%_\\').'%', ParameterType::STRING);
+        }
+
+        return $qb->getQuery()->execute();
     }
 }
