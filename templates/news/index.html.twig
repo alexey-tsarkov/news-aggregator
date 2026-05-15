@@ -6,14 +6,22 @@
 <div class="container p-4">
     <h1 class="mb-4">Свежие новости ⚡</h1>
 
-    <form action="{{ path('app_news_search') }}" class="w-100">
-        <input type="search" class="form-control" name="q" placeholder="Искать" tabindex="1">
-    </form>
+    <div class="mb-4">
+        <form action="{{ path('app_news_search') }}" class="w-100">
+            <input type="search" class="form-control" name="q" placeholder="Искать" tabindex="1">
+        </form>
+    </div>
 
-    {% for post in news %}
-    <p>{{ post.title }}</p>
+    {% if news %}
+        <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+            {% for post in news %}
+                <div class="col">
+                    {{ component('News:Card', {news: post}) }}
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-    <p>No news</p>
-    {% endfor %}
+        <p class="mb-4">Новости еще не подъехали...</p>
+    {% endif %}
 </div>
 {% endblock %}
