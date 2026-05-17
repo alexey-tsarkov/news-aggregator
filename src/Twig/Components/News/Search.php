@@ -28,7 +28,7 @@ final class Search
      */
     public function getNews(): array
     {
-        $limit = \min($limit ?? 100, 100);
+        $limit = \min($this->limit ?? 100, 100);
 
         return $this->newsRepository->findByQuery($this->query, $limit);
     }
