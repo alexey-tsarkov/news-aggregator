@@ -31,14 +31,15 @@ class NewsRepository extends ServiceEntityRepository
     public function findByQuery(string $query, ?int $limit = null, ?int $offset = null): array
     {
         $qb = $this->createQueryBuilder('n')
-            ->orderBy('n.updated_at', 'DESC')
             ->setMaxResults($limit)
             ->setFirstResult($offset);
 
-        $query = \trim($query);
+        $query = \trim(\preg_replace('/\\P{L}+/mu', $query, ' '));
         if ($query !== '') {
-            $qb->where('n.title LIKE ?1')
-                ->setParameter(1, '%'.\addcslashes($query, '%_\\').'%', ParameterType::STRING);
+            $qb->where('MATCH (n.title, n.summary, n.published_by) AGAINST (?1 WITH QUERY EXPANSION)')
+                ->setParameter(1, $query, ParameterType::STRING);
+        } else {
+            $qb->orderBy('n.updated_at', 'DESC');
         }
 
         return $qb->getQuery()->execute();
