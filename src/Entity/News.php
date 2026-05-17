@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
 #[ORM\UniqueConstraint(columns: ['published_by', 'published_id'])]
 #[ORM\Index(columns: ['updated_at'])]
+#[ORM\Index(columns: ['title', 'summary', 'published_by'], flags: ['fulltext'])]
 #[ORM\HasLifecycleCallbacks]
 class News
 {
