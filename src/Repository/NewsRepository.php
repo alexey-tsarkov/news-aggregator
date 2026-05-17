@@ -36,7 +36,7 @@ class NewsRepository extends ServiceEntityRepository
 
         $query = \trim(\preg_replace('/\\P{L}+/mu', $query, ' '));
         if ($query !== '') {
-            $qb->where('MATCH (n.title, n.summary, n.published_by) AGAINST (?1 WITH QUERY EXPANSION) > 0')
+            $qb->where('MATCH (n.title, n.summary, n.published_by) AGAINST (?1) > 0')
                 ->setParameter(1, $query, ParameterType::STRING);
         } else {
             $qb->orderBy('n.updated_at', 'DESC');
